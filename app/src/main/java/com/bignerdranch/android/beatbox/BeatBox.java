@@ -20,19 +20,27 @@ public class BeatBox {
     private AssetManager mAssets;
     private List<Sound> mSounds = new ArrayList<>();
     private SoundPool mSoundPool;
+    private String mPlaybackSpeedText;
+    private float mPlaybackSpeedRate;
 
     public BeatBox(Context context) {
         mAssets = context.getAssets();
         mSoundPool = new SoundPool(MAX_SOUNDS, AudioManager.STREAM_MUSIC, 0);
+        setPlaybackSpeedRate(1.0f);
+        setPlaybackSpeedText(context.getString(R.string.playback_speed_text, mPlaybackSpeedRate));
         loadSounds();
     }
 
     public void play(Sound sound) {
+        play(sound, mPlaybackSpeedRate);
+    }
+
+    public void play(Sound sound, float rate) {
         Integer soundId = sound.getSoundId();
         if (soundId == null) {
             return;
         }
-        mSoundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f);
+        mSoundPool.play(soundId, 1.0f, 1.0f, 1, 0, rate);
     }
 
     public void release() {
@@ -70,4 +78,10 @@ public class BeatBox {
     public List<Sound> getSounds() {
         return mSounds;
     }
+
+    public String getPlaybackSpeedText() { return mPlaybackSpeedText;}
+    public void setPlaybackSpeedText(String playbackSpeedText) { mPlaybackSpeedText = playbackSpeedText; }
+
+    public float getPlaybackSpeedRate() { return mPlaybackSpeedRate; }
+    public void setPlaybackSpeedRate(float playbackSpeedRate) { mPlaybackSpeedRate = playbackSpeedRate; }
 }

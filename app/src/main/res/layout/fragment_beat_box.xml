@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.bignerdranch.android.beatbox.PlaybackSpeedViewModel"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mPlaybackSpeedText}"
+            android:paddingTop="16dp"
+            android:gravity="center_horizontal"
+            tools:text="Playback Speed: 100 %"
+            />
+
+        <SeekBar
+            android:id="@+id/speed_control_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:max="100"
+            android:progress="@{viewModel.mPlaybackSpeedRate}"
+            android:onProgressChanged="@{viewModel::onSeekBarChange}"
+            />
+
+    </LinearLayout>
+
 </layout>

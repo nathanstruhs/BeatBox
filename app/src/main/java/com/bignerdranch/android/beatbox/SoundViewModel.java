@@ -7,6 +7,7 @@ import android.util.Log;
 public class SoundViewModel extends BaseObservable {
     private Sound mSound;
     private BeatBox mBeatBox;
+    private float mRate;
 
     public SoundViewModel(BeatBox beatBox) {
         mBeatBox = beatBox;
